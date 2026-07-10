@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    printf("Executing Processes:\n");
+    for (i = 1; i <= n; i++) {
+        printf("Process P%d is executing\n", i);
+    }
+
+    printf("All processes executed.\n");
+    return 0;
+}
