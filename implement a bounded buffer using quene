@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+#define SIZE 5
+
+int q[SIZE], front = 0, rear = -1, count = 0;
+
+int main() {
+    int i;
+
+    // Producer
+    for (i = 1; i <= SIZE; i++) {
+        q[++rear] = i;
+        count++;
+    }
+
+    // Consumer
+    while (count > 0) {
+        printf("Consumed: %d\n", q[front++]);
+        count--;
+    }
+
+    return 0;
+}
