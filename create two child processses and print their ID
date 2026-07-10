@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    pid_t pid1, pid2;
+
+    pid1 = fork();
+
+    if (pid1 == 0) {
+        // First child
+        printf("First Child PID: %d\n", getpid());
+    } else {
+        pid2 = fork();
+
+        if (pid2 == 0) {
+            // Second child
+            printf("Second Child PID: %d\n", getpid());
+        } else {
+            // Parent
+            printf("Parent PID: %d\n", getpid());
+        }
+    }
+
+    return 0;
+}
