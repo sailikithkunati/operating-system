@@ -7,7 +7,7 @@ REG . 192524247
   (b) Process Scheduling – Decides which process gets the CPU to run.
       Memory Management – Allocates and manages memory for each process safely.
   (c) Pseudocode:
-    START
+    BEGIN
       Create a child process using fork()
       IF child process is created THEN
       Display "Child Process ID"
@@ -16,7 +16,7 @@ REG . 192524247
       Display "Parent Process ID"
       Display "Child Process ID"
     END IF
-   STOP
+   END
 Examples: Windows, Linux, macOS, Android.
 
 2.ANS
@@ -29,11 +29,12 @@ File Closing	   close()
 (b) open() – Opens an existing file or creates a new file.
 write() – Writes data into the file.
 (c) Pseudocode:
-  START
+  BEGIN
     Open or create "student.txt"
     Write "Student Name: Rahul" into the file
     Close the file
-  STOP
+  END IF
+END
 
 
 3.ANS
@@ -45,13 +46,14 @@ close()
 (b) read() – Reads data from the source file.
 write() – Writes the read data into the destination file.
 (c) Pseudocode:
-  START
+  BEGIN
     Open source file
     Open destination file
     Read data from source file
     Write data to destination file
     Close both files
- STOP
+ END WHILE 
+END
 
 
 4.ANS
@@ -59,14 +61,14 @@ write() – Writes the read data into the destination file.
 exec() – Replaces the current process with a new program.
 (b) wait() – Makes the parent process wait until the child process finishes execution.
 (c) Pseudocode:
-START
+BEGIN
   Create child process using fork()
   IF Child Process THEN
   Execute new program using exec()
 ELSE
   Wait for child process using wait()
 END IF
-STOP
+END
 
 
 5.ANS
@@ -74,8 +76,9 @@ a) File management helps the operating system store, organize, retrieve, and pro
 (b) open() – Opens a file so it can be read from or written to.
 close() – Closes the file after use and releases system resources.
 (c) Pseudocode:
- START
+ BEGIN
   Open the file
   Read the file contents
   Close the file
- STOP
+ END IF
+END
