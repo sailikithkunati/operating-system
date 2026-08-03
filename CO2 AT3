@@ -1,0 +1,29 @@
+K.SAI LIKHITH
+REG NO:192524247
+
+
+Q1. Deadlock Debugging
+Condition causing deadlock:
+P1 locks R1 and waits for R2.
+P2 locks R2 and waits for R1.
+Both wait for each other forever (Circular Wait), causing deadlock.
+
+Optimization:
+Follow a fixed resource ordering.
+Example: Both processes should always lock R1 first, then R2.
+This removes circular wait and prevents deadlock.
+
+Q2. CPU Utilization Problem
+Cause:
+Processes repeatedly change from Reautilizationg → Ready due to frequent I/O operations.
+CPU remains idle while processes wait for I/O, resulting in low CPU utilization.
+
+Optimization:
+Increase CPU-I/O overlap using multiprogramming.
+Improve scheduling (Round Robin/MLFQ) and reduce unnecessary waiting.
+
+Q3. Memory Bottleneck Debugging
+Memory usage:
+Code = 5 MB
+Heap = 150 MB
+Stack = 25 × 1 …
