@@ -1,0 +1,107 @@
+Answer1. Deadlock Debugging
+
+Cause of Deadlock:
+Deadlock occurs because P1 locks R1 and waits for R2, while P2 locks R2 and waits for R1. Both processes wait for each other, creating a circular wait.
+
+Deadlock Conditions:
+1. Mutual Exclusion
+2. Hold and Wait
+3. No Preemption
+4. Circular Wait
+
+Optimization:
+Use a fixed resource locking order. Both processes should lock R1 first and then R2.
+
+Example:
+Process P1:
+lock(R1)
+lock(R2)
+Critical Section
+unlock(R2)
+unlock(R1)
+
+Process P2:
+lock(R1)
+lock(R2)
+Critical Section
+unlock(R2)
+unlock(R1)
+
+Final Answer:
+Deadlock is caused by circular waiting due to different resource locking orders. It can be prevented by acquiring resources in the same order (R1 → R2) for all processes.
+
+  Answer 2
+  Q2. CPU Utilization Problem
+
+Cause:
+The processes repeatedly switch between Ready and Waiting states because they frequently perform I/O operations. The CPU remains idle while waiting for I/O to complete, resulting in low CPU utilization (30%).
+
+Optimization:
+Use multiprogramming or improve CPU scheduling so that when one process is waiting for I/O, another ready process is executed. This keeps the CPU busy and increases CPU utilization.
+
+Final Answer:
+Low CPU utilization is caused by frequent I/O waiting. Using multiprogramming and efficient CPU scheduling improves CPU utilization by executing another ready process whenever one process is waiting.
+
+  Answer 3
+  Q3. Memory Bottleneck Debugging
+
+Cause:
+The program suffers from frequent page faults because of high memory consumption. The heap uses 150 MB of memory, and 25 threads consume additional stack memory (1 MB per thread = 25 MB). Although the system has 2 GB of RAM, frequent memory access by multiple threads may cause poor memory locality and increased page swapping.
+
+When required pages are not available in physical memory, the operating system loads them from secondary storage. This increases execution time because disk access is much slower than RAM access, causing performance degradation.
+
+Optimizations:
+1. Optimize heap memory usage:
+   - Release unused memory properly.
+   - Avoid memory leaks.
+   - Use efficient data structures to reduce unnecessary memory allocation.
+
+2. Optimize thread usage:
+   - Reduce the number of threads if they are not required.
+   - Decrease thread stack size to reduce memory overhead.
+   - Use a thread pool to manage threads efficiently.
+
+Final Answer:
+The main issue is excessive memory usage causing frequent page faults and slow execution. The large heap and multiple thread stacks increase memory pressure. Reducing memory allocation and optimizing thread management can decrease page faults, improve CPU efficiency, and increase overall system performance.
+
+  Answer 4
+Q4. Starvation Debugging
+
+Cause:
+Process P5 is suffering from starvation because it is placed in Q3 (Batch queue), which has the lowest priority. The scheduler always gives CPU preference to higher-priority queues (Q1 and Q2). If Q1 and Q2 continuously contain processes, Q3 processes like P5 may never get CPU time.
+
+This happens because the multilevel queue scheduler uses strict priority scheduling between queues. Lower-priority processes must wait until all higher-priority queues are empty, causing indefinite postponement.
+
+Optimization:
+1. Use Aging:
+   - Gradually increase the priority of processes waiting for a long time.
+   - P5's priority will increase after waiting, allowing it to move to a higher queue and get CPU time.
+
+2. Use Fair Scheduling:
+   - Allocate a fixed percentage of CPU time to lower-priority queues.
+   - Example: Give Q3 a guaranteed CPU time share even when Q1 and Q2 are busy.
+
+Final Answer:
+The root cause of starvation is strict priority scheduling, where higher-priority queues continuously block lower-priority processes. Applying aging or providing fair CPU allocation ensures that P5 eventually receives CPU time and prevents starvation.
+
+     Answer 5
+Q5. Context-Switch Overhead Debugging
+
+Cause:
+The server performs 20,000 context switches per second because the scheduler uses a very small time quantum (1ms). Since the average thread burst time is 2ms, each thread is frequently interrupted before completing its CPU burst.
+
+Additionally, the high I/O wait frequency causes threads to move repeatedly between Running, Waiting, and Ready states. These frequent state changes force the operating system to perform more context switches, increasing overhead and reducing CPU efficiency.
+
+Optimizations:
+
+1. Increase Time Quantum:
+   - Increase the scheduler time slice from 1ms to a larger value.
+   - Threads can run longer before being preempted, reducing the number of context switches.
+
+2. Improve Thread and I/O Management:
+   - Reduce unnecessary thread creation and use thread pools.
+   - Optimize I/O operations so threads spend less time waiting and switching between states.
+
+Final Answer:
+High context-switch overhead is caused by a very small time quantum and frequent I/O waits. Increasing the time quantum and optimizing thread/I/O management will reduce context switches, lower overhead, and improve server performance.
+     
