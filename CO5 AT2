@@ -1,0 +1,151 @@
+K.SAI LIKHITH 
+192524247
+
+Q NO .1
+Objective: Monitor disk usage and automatically delete or compress old log files when disk utilization exceeds 80%.
+BEGIN
+    SET threshold = 80%
+    SET target_usage = 70%
+
+    usage = GET_DISK_USAGE()
+
+    IF usage > threshold THEN
+        log_files = GET_LOG_FILES()
+        SORT log_files BY age DESCENDING
+
+        FOR each file IN log_files DO
+            IF file IS old THEN
+                COMPRESS file
+
+                usage = GET_DISK_USAGE()
+
+                IF usage <= target_usage THEN
+                    BREAK
+                ENDIF
+            ENDIF
+        ENDFOR
+
+        IF usage > threshold THEN
+            FOR each file IN log_files DO
+                IF file IS archived AND safe_to_delete(file) THEN
+                    DELETE file
+                    usage = GET_DISK_USAGE()
+
+  IF usage <= target_usage THEN
+BREAK
+   ENDIF
+                ENDIF
+            ENDFOR
+        ENDIF
+    ENDIF
+
+    PRINT current disk usage
+END
+
+
+Q NO .2
+
+BEGIN
+    INPUT process_list
+
+    WHILE process_list IS NOT EMPTY DO
+        SORT process_list BY priority DESCENDING
+
+        SELECT process WITH highest priority
+
+        ALLOCATE CPU TIME QUANTUM
+        EXECUTE selected process
+
+        IF process IS completed THEN
+            REMOVE process FROM process_list
+        ELSE
+            DECREASE priority slightly
+            ADD process BACK TO process_list
+        ENDIF
+    ENDWHILE
+
+    PRINT "All processes completed"
+END
+
+
+Q NO .3
+
+BEGIN
+    total_RAM = 16 GB
+    host_reserved = 4 GB
+    available_RAM = total_RAM - host_reserved
+
+    INPUT number_of_VMs
+
+    min_RAM = 2 GB
+
+    FOR i = 1 TO number_of_VMs DO
+        IF available_RAM >= min_RAM THEN
+            ALLOCATE min_RAM TO VM[i]
+            available_RAM = available_RAM - min_RAM
+        ELSE
+            PRINT "Insufficient memory for VM", i
+        ENDIF
+    ENDFOR
+
+    PRINT "Remaining RAM =", available_RAM
+END
+
+
+
+Q NO .4
+BEGIN
+    INPUT performance_required
+    INPUT budget
+    INPUT hardware_access
+
+    IF performance_required = HIGH AND hardware_access = TRUE THEN
+        selected_hypervisor = "Type-1 Hypervisor"
+
+    ELSE IF budget = LOW THEN
+        selected_hypervisor = "Type-2 Hypervisor"
+
+    ELSE IF performance_required = HIGH THEN
+        selected_hypervisor = "Type-1 Hypervisor"
+
+    ELSE
+        selected_hypervisor = "Type-2 Hypervisor"
+    ENDIF
+
+    PRINT selected_hypervisor
+END
+
+
+Q NO .5
+
+BEGIN
+    INPUT application_list
+
+    FOR each app IN application_list DO
+
+        CREATE cgroup FOR app
+
+        SET CPU_LIMIT for app
+        SET MEMORY_LIMIT for app
+
+        ASSIGN app PROCESS TO cgroup
+
+    ENDFOR
+
+    MONITOR CPU AND MEMORY USAGE
+
+    IF application EXCEEDS its limit THEN
+        THROTTLE CPU usage
+        LIMIT memory allocation
+    ENDIF
+
+    PRINT "Resource limits successfully applied"
+END
+
+
+
+
+
+
+
+
