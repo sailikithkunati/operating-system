@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int request[50], n, head;
+    int total = 0;
+
+    printf("Enter number of requests: ");
+    scanf("%d", &n);
+
+    printf("Enter request queue:\n");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &request[i]);
+
+    printf("Enter initial head position: ");
+    scanf("%d", &head);
+
+    printf("\nFCFS Disk Scheduling:\n");
+    printf("Head Movement: ");
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d", request[i]);
+
+        total += abs(head - request[i]);
+        head = request[i];
+
+        if (i < n - 1)
+            printf(" -> ");
+    }
+
+    printf("\n\nTotal Head Movement = %d cylinders\n", total);
+    printf("Average Head Movement = %.2f cylinders\n",
+           (float)total / n);
+
+    return 0;
+}
